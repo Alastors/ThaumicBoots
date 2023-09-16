@@ -10,9 +10,9 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import thaumicboots.api.network.PacketHandler;
-import thaumicboots.api.network.PacketJumpToggle;
-import thaumicboots.api.network.PacketSpeedToggle;
+import thaumicboots.api.serverfiles.PacketHandler;
+import thaumicboots.api.serverfiles.PacketJumpToggle;
+import thaumicboots.api.serverfiles.PacketSpeedToggle;
 
 public class BootKeys {
 

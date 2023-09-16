@@ -44,6 +44,7 @@ public class ItemBoots extends ItemArmor
     public String iconResPath;
     public String armorResPath;
     public String unlocalisedName;
+    public EnumRarity rarity;
 
     public double jumpBonus;
 
@@ -68,6 +69,7 @@ public class ItemBoots extends ItemArmor
         iconResPath = "thaumicboots:electricVoid_16x";
         armorResPath = "thaumicboots:model/electricbootsVoidwalker.png";
         unlocalisedName = "ItemElectricVoid";
+        rarity = EnumRarity.rare; // this is less a variable, and more an indicator
     }
 
     public double getJumpModifier() {
@@ -140,8 +142,9 @@ public class ItemBoots extends ItemArmor
         return armorResPath;
     }
 
+    @Override
     public EnumRarity getRarity(final ItemStack stack) {
-        return EnumRarity.rare;
+        return rarity = EnumRarity.rare;
     }
 
     public int getRunicCharge(ItemStack arg0) {
@@ -163,7 +166,7 @@ public class ItemBoots extends ItemArmor
 
     protected float computeBonus(ItemStack itemStack, EntityPlayer player) {
         int ticks = player.inventory.armorItemInSlot(0).stackTagCompound.getInteger("runTicks");
-        float bonus = runBonus + ((ticks / 5) * longrunningbonus);
+        float bonus = runBonus + ((ticks * 0.2F) * longrunningbonus);
         return bonus;
     }
 
@@ -232,6 +235,7 @@ public class ItemBoots extends ItemArmor
     private static boolean isBoot(ItemStack stack) {
         return stack != null && (stack.getItem() instanceof ItemBoots);
     }
+
 
     @Optional.Method(modid = "gtnhlib")
     @SideOnly(Side.CLIENT) // this has to exist or it'll cause crashes

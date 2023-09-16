@@ -116,6 +116,9 @@ public class BootsEventHandler {
 
     @SubscribeEvent
     public void onLivingFall(LivingFallEvent event) {
+        /*
+         * if (!EMT.instance.isSimulating()) { return; }
+         */
 
         // if entity isn't a player
         if (!(event.entity instanceof EntityPlayer)) {

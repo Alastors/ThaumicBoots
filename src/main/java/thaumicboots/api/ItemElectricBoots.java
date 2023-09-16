@@ -64,14 +64,14 @@ public class ItemElectricBoots extends ItemBoots implements IElectricItem, ISpec
     // but only when it's called outside of EMT,
     // this ensures this never happens internally.
     public float getEMTNanoSpeed() {
-        if (EMTConfigHandler.nanoBootsSpeed == 0.0F) {
+        if ((float) EMTConfigHandler.nanoBootsSpeed == 0.0F) {
             return 0.275F;
         }
         return (float) EMTConfigHandler.nanoBootsSpeed;
     }
 
     public float getEMTQuantumSpeed() {
-        if (EMTConfigHandler.quantumBootsSpeed == 0.0F) {
+        if ((float) EMTConfigHandler.quantumBootsSpeed == 0.0F) {
             return 0.51F;
         }
         return (float) EMTConfigHandler.quantumBootsSpeed;
@@ -91,11 +91,11 @@ public class ItemElectricBoots extends ItemBoots implements IElectricItem, ISpec
     protected float computeBonus(ItemStack itemStack, EntityPlayer player) {
         int ticks = player.inventory.armorItemInSlot(0).stackTagCompound.getInteger("runTicks");
 
-        float bonus = runBonus + ((ticks * 0.2F) * 0.003F);
+        float bonus = runBonus + ((ticks / 5) * 0.003F);
         if (ElectricItem.manager.getCharge(itemStack) == 0) {
             bonus = 0;
         } else if (player.isInWater()) {
-            bonus *= 0.25F;
+            bonus /= 4.0F;
         }
 
         return bonus;
@@ -124,7 +124,7 @@ public class ItemElectricBoots extends ItemBoots implements IElectricItem, ISpec
             int energyPerDamage = getEnergyPerDamage();
             double damageLimit = energyPerDamage <= 0 ? 0
                     : (25 * ElectricItem.manager.getCharge(armor)) / energyPerDamage;
-            return new ArmorProperties(0, absorptionRatio, (int) damageLimit);
+            return new net.minecraftforge.common.ISpecialArmor.ArmorProperties(0, absorptionRatio, (int) damageLimit);
         }
     }
 
@@ -164,7 +164,7 @@ public class ItemElectricBoots extends ItemBoots implements IElectricItem, ISpec
             bonus = computeBonus(itemStack, player);
         }
         if (ElectricItem.manager.getCharge(itemStack) == 0) {
-            bonus = 0;
+            bonus *= 0;
         }
         bonus *= itemStack.stackTagCompound.getDouble(TAG_MODE_SPEED);
         applyBonus(player, bonus);

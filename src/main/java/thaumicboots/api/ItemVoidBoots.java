@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import taintedmagic.common.registry.ItemRegistry;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.client.fx.ParticleEngine;
@@ -31,6 +33,7 @@ public class ItemVoidBoots extends ItemBoots implements IWarpingGear, ISpecialAr
         iconResPath = "thaumicboots:voidComet_16x";
         armorResPath = "thaumicboots:model/VoidwalkerBootsComet_-_Purple.png";
         unlocalisedName = "ItemVoidComet";
+        rarity = EnumRarity.epic;
     }
 
     @Override
@@ -126,6 +129,7 @@ public class ItemVoidBoots extends ItemBoots implements IWarpingGear, ISpecialAr
     }
 
     // particle effect from Tainted Magic
+    @SideOnly(Side.CLIENT)
     public void particles(final World world, final EntityPlayer player) {
         final FXWispEG fx = new FXWispEG(
                 world,
