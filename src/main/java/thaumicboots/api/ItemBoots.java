@@ -44,6 +44,7 @@ public class ItemBoots extends ItemArmor
     public String iconResPath;
     public String armorResPath;
     public String unlocalisedName;
+    public EnumRarity rarity;
 
     public double jumpBonus;
 
@@ -68,6 +69,7 @@ public class ItemBoots extends ItemArmor
         iconResPath = "thaumicboots:electricVoid_16x";
         armorResPath = "thaumicboots:model/electricbootsVoidwalker.png";
         unlocalisedName = "ItemElectricVoid";
+        rarity = EnumRarity.rare; // this is less a variable, and more an indicator
     }
 
     public double getJumpModifier() {
@@ -120,6 +122,7 @@ public class ItemBoots extends ItemArmor
     }
 
     @SideOnly(Side.CLIENT)
+
     public void registerIcons(IIconRegister ir) {
         this.icon = ir.registerIcon(iconResPath);
     }
@@ -140,8 +143,9 @@ public class ItemBoots extends ItemArmor
         return armorResPath;
     }
 
+    @Override
     public EnumRarity getRarity(final ItemStack stack) {
-        return EnumRarity.rare;
+        return rarity = EnumRarity.rare;
     }
 
     public int getRunicCharge(ItemStack arg0) {
@@ -211,7 +215,7 @@ public class ItemBoots extends ItemArmor
     public void applyBonus(EntityPlayer player, float bonus) {
         if (waterEffects) {
             if (player.isInWater()) {
-                bonus *= 0.25F;
+                bonus /= 4.0F;
             }
         }
         if (player.onGround || player.isOnLadder() || player.capabilities.isFlying) {
@@ -234,7 +238,7 @@ public class ItemBoots extends ItemArmor
     }
 
     @Optional.Method(modid = "gtnhlib")
-    @SideOnly(Side.CLIENT) // this has to exist or it'll cause crashes
+    @SideOnly(Side.CLIENT)
     public static void renderHUDJumpNotification() {
         Minecraft mc = Minecraft.getMinecraft();
         String text = getModeText(
@@ -244,7 +248,7 @@ public class ItemBoots extends ItemArmor
     }
 
     @Optional.Method(modid = "gtnhlib")
-    @SideOnly(Side.CLIENT) // this has to exist or it'll cause crashes
+    @SideOnly(Side.CLIENT)
     public static void renderHUDSpeedNotification() {
         Minecraft mc = Minecraft.getMinecraft();
         String text = getModeText(

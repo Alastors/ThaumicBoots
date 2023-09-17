@@ -16,6 +16,7 @@ import ic2.api.item.ElectricItem;
 import thaumicboots.api.*;
 import thaumicboots.item.boots.comet.ItemElectricCometBoots;
 import thaumicboots.item.boots.meteor.ItemElectricMeteorBoots;
+import thaumicboots.item.boots.voidwalker.*;
 import thaumicboots.main.utils.compat.EMTHelper;
 
 public class BootsEventHandler {
@@ -90,6 +91,9 @@ public class BootsEventHandler {
 
     @SubscribeEvent
     public void onLivingFall(LivingFallEvent event) {
+        /*
+         * if (!EMT.instance.isSimulating()) { return; }
+         */
 
         // if entity isn't a player
         if (!(event.entity instanceof EntityPlayer)) {
