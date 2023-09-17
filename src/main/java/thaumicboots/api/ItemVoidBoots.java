@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXWispEG;
 import thaumicboots.main.utils.TabThaumicBoots;
 
 public class ItemVoidBoots extends ItemBoots implements IVoid {
@@ -100,6 +102,17 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
         if (source != DamageSource.fall) {
             stack.damageItem(dmg, entity);
         }
+    }
+
+    // particle effect from Tainted Magic
+    public void particles(final World world, final EntityPlayer player) {
+        final FXWispEG fx = new FXWispEG(
+                world,
+                player.posX + (Math.random() - Math.random()) * 0.5D,
+                player.boundingBox.minY + 0.05D + (Math.random() - Math.random()) * 0.1D,
+                player.posZ + (Math.random() - Math.random()) * 0.5D,
+                player);
+        ParticleEngine.instance.addEffect(world, fx);
     }
 
 }
