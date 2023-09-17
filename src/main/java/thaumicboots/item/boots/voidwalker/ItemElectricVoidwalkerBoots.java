@@ -4,23 +4,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.MinecraftForge;
 
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.item.ElectricItem;
-import taintedmagic.common.registry.ItemRegistry;
-import thaumcraft.api.IWarpingGear;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.fx.particles.FXWispEG;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.armor.Hover;
+import thaumicboots.api.IVoid;
 import thaumicboots.api.ItemElectricBoots;
 import thaumicboots.main.utils.TabThaumicBoots;
 
-public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IWarpingGear, ISpecialArmor {
+public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IVoid {
 
     public ItemElectricVoidwalkerBoots(final ArmorMaterial material, final int j, final int k) {
         super(material, j, k);
@@ -48,25 +41,9 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IW
         rarity = EnumRarity.epic;
     }
 
-    @Override
-    public int getWarp(final ItemStack stack, final EntityPlayer player) {
-        return 5;
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected void particles(final World world, final EntityPlayer player) {
-        final FXWispEG fx = new FXWispEG(
-                world,
-                player.posX + (Math.random() - Math.random()) * 0.5D,
-                player.boundingBox.minY + 0.05D + (Math.random() - Math.random()) * 0.1D,
-                player.posZ + (Math.random() - Math.random()) * 0.5D,
-                player);
-        ParticleEngine.instance.addEffect(world, fx);
-    }
-
     // necessary for void + electric function
     @Override
-    public void onArmorTick(final World world, final EntityPlayer player, final ItemStack stack) {
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         super.onArmorTick(world, player, stack);
 
         // particles
@@ -87,12 +64,10 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IW
             // speed boost
             if (player.onGround || player.capabilities.isFlying) {
                 float bonus = 0.200F;
-                final ItemStack sash = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
-                if (sash != null && sash.getItem() == ItemRegistry.ItemVoidwalkerSash) {
-                    bonus *= 3.0F;
-                }
+
+                bonus *= sashEquiped(player);
                 if (ElectricItem.manager.getCharge(stack) == 0) {
-                    bonus *= 0;
+                    bonus = 0;
                 }
 
                 bonus = player.capabilities.isFlying ? bonus * 0.75F : bonus;
@@ -111,7 +86,7 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IW
     }
 
     @Override
-    public EnumRarity getRarity(final ItemStack stack) {
+    public EnumRarity getRarity(ItemStack stack) {
         return rarity = EnumRarity.epic;
     }
 }

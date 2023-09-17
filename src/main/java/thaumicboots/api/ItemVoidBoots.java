@@ -3,6 +3,7 @@ package thaumicboots.api;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -26,9 +27,13 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
         unlocalisedName = "ItemVoidComet";
     }
 
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.epic;
+    }
+
     @Override
-    public ArmorProperties getProperties(final EntityLivingBase entity, final ItemStack stack,
-            final DamageSource source, final double dmg, final int slot) {
+    public ArmorProperties getProperties(EntityLivingBase entity, ItemStack stack, final DamageSource source,
+            final double dmg, final int slot) {
         int priority = 0;
         double ratio = damageReduceAmount / 90.0D;
 
@@ -43,12 +48,12 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
     }
 
     @Override
-    public int getArmorDisplay(final EntityPlayer player, final ItemStack stack, final int slot) {
+    public int getArmorDisplay(EntityPlayer player, ItemStack stack, int slot) {
         return damageReduceAmount;
     }
 
     @Override
-    public void onUpdate(final ItemStack stack, final World world, final Entity entity, final int j, final boolean k) {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int j, boolean k) {
         super.onUpdate(stack, world, entity, j, k);
         if (!world.isRemote && stack.isItemDamaged()
                 && entity.ticksExisted % 20 == 0
@@ -59,7 +64,7 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
 
     // necessary for void functionality
     @Override
-    public void onArmorTick(final World world, final EntityPlayer player, final ItemStack stack) {
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         super.onArmorTick(world, player, stack);
         // repair
         if (!world.isRemote && stack.isItemDamaged() && player.ticksExisted % 20 == 0) {
@@ -88,6 +93,12 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
         // negate fall damage
         if (player.fallDistance > 3.0F) {
             player.fallDistance = 1.0F;
+        }
+    }
+
+    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int dmg, int slot) {
+        if (source != DamageSource.fall) {
+            stack.damageItem(dmg, entity);
         }
     }
 
