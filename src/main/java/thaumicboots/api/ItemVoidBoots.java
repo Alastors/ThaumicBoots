@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import taintedmagic.common.registry.ItemRegistry;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.client.fx.ParticleEngine;
@@ -31,6 +33,7 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
         iconResPath = "thaumicboots:voidComet_16x";
         armorResPath = "thaumicboots:model/VoidwalkerBootsComet_-_Purple.png";
         unlocalisedName = "ItemVoidComet";
+        rarity = EnumRarity.epic;
     }
 
 
@@ -99,5 +102,4 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
             player.fallDistance = 1.0F;
         }
     }
-
 }

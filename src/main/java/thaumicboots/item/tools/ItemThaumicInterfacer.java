@@ -35,6 +35,8 @@ public class ItemThaumicInterfacer extends Item {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int targetX, int targetY,
             int targetZ, int side, float hitX, float hitY, float hitZ) {
+        // ItemStack stack1 = player.getCurrentArmor(0);
+        // player.addChatMessage(new ChatComponentText("seethe: " + stack1.getDisplayName()));
         return false;
     }
 }

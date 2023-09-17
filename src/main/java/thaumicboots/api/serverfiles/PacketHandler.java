@@ -1,4 +1,4 @@
-package thaumicboots.api.network;
+package thaumicboots.api.serverfiles;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
