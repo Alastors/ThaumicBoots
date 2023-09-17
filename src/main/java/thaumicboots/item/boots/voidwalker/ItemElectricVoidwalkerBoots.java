@@ -7,8 +7,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import ic2.api.item.ElectricItem;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.fx.particles.FXWispEG;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.armor.Hover;
 import thaumicboots.api.IVoid;
@@ -92,13 +90,4 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IV
         return rarity = EnumRarity.epic;
     }
 
-    public void particles(final World world, final EntityPlayer player) {
-        final FXWispEG fx = new FXWispEG(
-                world,
-                player.posX + (Math.random() - Math.random()) * 0.5D,
-                player.boundingBox.minY + 0.05D + (Math.random() - Math.random()) * 0.1D,
-                player.posZ + (Math.random() - Math.random()) * 0.5D,
-                player);
-        ParticleEngine.instance.addEffect(world, fx);
-    }
 }

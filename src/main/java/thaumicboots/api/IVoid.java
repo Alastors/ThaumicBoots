@@ -2,11 +2,14 @@ package thaumicboots.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
 import baubles.common.lib.PlayerHandler;
 import taintedmagic.common.registry.ItemRegistry;
 import thaumcraft.api.IWarpingGear;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXWispEG;
 
 public interface IVoid extends IWarpingGear, ISpecialArmor {
 
@@ -21,5 +24,16 @@ public interface IVoid extends IWarpingGear, ISpecialArmor {
             return 3.0F;
         }
         return 1.0F;
+    }
+
+    // particle effect from Tainted Magic
+    default void particles(final World world, final EntityPlayer player) {
+        final FXWispEG fx = new FXWispEG(
+                world,
+                player.posX + (Math.random() - Math.random()) * 0.5D,
+                player.boundingBox.minY + 0.05D + (Math.random() - Math.random()) * 0.1D,
+                player.posZ + (Math.random() - Math.random()) * 0.5D,
+                player);
+        ParticleEngine.instance.addEffect(world, fx);
     }
 }
