@@ -4,16 +4,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.MinecraftForge;
 
+import baubles.common.lib.PlayerHandler;
 import ic2.api.item.ElectricItem;
+import taintedmagic.common.registry.ItemRegistry;
+import thaumcraft.api.IWarpingGear;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXWispEG;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.armor.Hover;
-import thaumicboots.api.IVoid;
 import thaumicboots.api.ItemElectricBoots;
 import thaumicboots.main.utils.TabThaumicBoots;
 
-public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IVoid {
+public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IWarpingGear, ISpecialArmor {
 
     public ItemElectricVoidwalkerBoots(final ArmorMaterial material, final int j, final int k) {
         super(material, j, k);
@@ -88,6 +93,30 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IV
     @Override
     public EnumRarity getRarity(ItemStack stack) {
         return rarity = EnumRarity.epic;
+    }
+
+    public int getWarp(final ItemStack stack, final EntityPlayer player) {
+        return 5;
+    }
+
+    // TODO: Extract this into it's own method
+    public float sashEquiped(final EntityPlayer player) {
+        final ItemStack sash = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+        if (sash != null && sash.getItem() == ItemRegistry.ItemVoidwalkerSash) {
+            return 3.0F;
+        }
+        return 1.0F;
+    }
+
+    // particle effect from Tainted Magic
+    public void particles(final World world, final EntityPlayer player) {
+        final FXWispEG fx = new FXWispEG(
+                world,
+                player.posX + (Math.random() - Math.random()) * 0.5D,
+                player.boundingBox.minY + 0.05D + (Math.random() - Math.random()) * 0.1D,
+                player.posZ + (Math.random() - Math.random()) * 0.5D,
+                player);
+        ParticleEngine.instance.addEffect(world, fx);
     }
 
 }
