@@ -1,7 +1,5 @@
 package thaumicboots.api;
 
-import cpw.mods.fml.common.Loader;
-import flaxbeard.thaumicexploration.integration.TTIntegration;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,7 +7,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
-public interface IMeteor extends ISpecialEffect{
+import cpw.mods.fml.common.Loader;
+import flaxbeard.thaumicexploration.integration.TTIntegration;
+
+public interface IMeteor extends ISpecialEffect {
 
     public default void specialEffect(Item item, EntityPlayer player) {
         ItemStack itemStack = player.inventory.armorItemInSlot(0);
@@ -86,7 +87,7 @@ public interface IMeteor extends ISpecialEffect{
         itemStack.stackTagCompound.setInteger("airTicks", ticksAir);
     }
 
-    public default void specialEffect2(LivingEvent.LivingJumpEvent event){
+    public default void specialEffect2(LivingEvent.LivingJumpEvent event) {
         Vec3 vector = event.entityLiving.getLook(0.5F);
         double total = Math.abs(vector.zCoord + vector.xCoord);
         double jump = 0;

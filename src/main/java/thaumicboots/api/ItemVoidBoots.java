@@ -3,17 +3,10 @@ package thaumicboots.api;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor;
 
-import baubles.common.lib.PlayerHandler;
-import taintedmagic.common.registry.ItemRegistry;
-import thaumcraft.api.IWarpingGear;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.fx.particles.FXWispEG;
 import thaumicboots.main.utils.TabThaumicBoots;
 
 public class ItemVoidBoots extends ItemBoots implements IVoid {
@@ -33,10 +26,9 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
         unlocalisedName = "ItemVoidComet";
     }
 
-
     @Override
     public ArmorProperties getProperties(final EntityLivingBase entity, final ItemStack stack,
-                                         final DamageSource source, final double dmg, final int slot) {
+            final DamageSource source, final double dmg, final int slot) {
         int priority = 0;
         double ratio = damageReduceAmount / 90.0D;
 
@@ -49,7 +41,6 @@ public class ItemVoidBoots extends ItemBoots implements IVoid {
         }
         return new ArmorProperties(priority, ratio, stack.getMaxDamage() + 1 - stack.getItemDamage());
     }
-
 
     @Override
     public int getArmorDisplay(final EntityPlayer player, final ItemStack stack, final int slot) {

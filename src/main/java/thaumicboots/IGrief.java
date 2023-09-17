@@ -1,13 +1,15 @@
 package thaumicboots;
 
-import flaxbeard.thaumicexploration.ThaumicExploration;
-import flaxbeard.thaumicexploration.common.ConfigTX;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+
+import flaxbeard.thaumicexploration.ThaumicExploration;
+import flaxbeard.thaumicexploration.common.ConfigTX;
 import thaumicboots.main.utils.compat.ExplorationsHelper;
 
 public interface IGrief {
+
     public default void grief(EntityPlayer player) {
         // anti-griefing config
         if (ExplorationsHelper.isActive()) {

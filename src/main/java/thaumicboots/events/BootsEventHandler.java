@@ -2,31 +2,21 @@ package thaumicboots.events;
 
 import java.util.HashMap;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import flaxbeard.thaumicexploration.ThaumicExploration;
-import flaxbeard.thaumicexploration.common.ConfigTX;
-import flaxbeard.thaumicexploration.integration.TTIntegration;
 import ic2.api.item.ElectricItem;
 import thaumicboots.api.*;
 import thaumicboots.item.boots.comet.ItemElectricCometBoots;
 import thaumicboots.item.boots.meteor.ItemElectricMeteorBoots;
 import thaumicboots.main.utils.compat.EMTHelper;
-import thaumicboots.main.utils.compat.ExplorationsHelper;
 
 public class BootsEventHandler {
 
@@ -148,7 +138,6 @@ public class BootsEventHandler {
         }
 
         Item item = player.inventory.armorItemInSlot(0).getItem();
-
 
         if (item instanceof ISpecialEffect boot) {
             boot.specialEffect(item, player);

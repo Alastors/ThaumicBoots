@@ -1,7 +1,5 @@
 package thaumicboots.api;
 
-import baubles.common.lib.PlayerHandler;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -9,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+
+import baubles.common.lib.PlayerHandler;
 import taintedmagic.common.registry.ItemRegistry;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.client.fx.ParticleEngine;
@@ -20,20 +20,16 @@ public interface IVoid extends IWarpingGear, ISpecialArmor {
         return EnumRarity.epic;
     }
 
-
     public default int getWarp(final ItemStack stack, final EntityPlayer player) {
         return 5;
     }
 
-
-
     public default void damageArmor(final EntityLivingBase entity, final ItemStack stack, final DamageSource source,
-                            final int dmg, final int slot) {
+            final int dmg, final int slot) {
         if (source != DamageSource.fall) {
             stack.damageItem(dmg, entity);
         }
     }
-
 
     // TODO: Extract this into it's own method
     public default float sashEquiped(final EntityPlayer player) {
