@@ -13,8 +13,10 @@ public interface IComet extends ISpecialEffect, IGrief {
             NBTTagCompound par1NBTTagCompound = new NBTTagCompound();
             itemStack.setTagCompound(par1NBTTagCompound);
             itemStack.stackTagCompound.setInteger("runTicks", 0);
+            itemStack.stackTagCompound.setBoolean("element", false);
         }
-        grief(player);
+        boolean isEnabledGrief = itemStack.stackTagCompound.getBoolean("element");
+        grief(player, isEnabledGrief);
         int ticks = itemStack.stackTagCompound.getInteger("runTicks");
         double motion = Math.abs(player.motionX) + Math.abs(player.motionZ) + Math.abs(player.motionY);
         if (motion > 0.1F || !player.onGround || player.isOnLadder()) {
@@ -33,7 +35,6 @@ public interface IComet extends ISpecialEffect, IGrief {
                     0.0D);
         }
         itemStack.stackTagCompound.setInteger("runTicks", ticks);
-        return;
     }
 
 }

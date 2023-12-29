@@ -49,6 +49,7 @@ public class ItemBoots extends ItemArmor
 
     public static final String TAG_MODE_JUMP = "jump";
     public static final String TAG_MODE_SPEED = "speed";
+    public static final String TAG_MODE_ELEMENT = "element";
 
     public ItemBoots(ArmorMaterial par2EnumArmorMaterial, int par3, int par4) {
         super(par2EnumArmorMaterial, par3, par4);
@@ -122,6 +123,16 @@ public class ItemBoots extends ItemArmor
             stack.setTagCompound(new NBTTagCompound());
         }
         stack.stackTagCompound.setDouble(TAG_MODE_SPEED, state);
+    }
+
+    // Changing element mode for magic boots
+
+    public static boolean getModeElement(final ItemStack itemStack) {
+        return itemStack.stackTagCompound.getBoolean(TAG_MODE_ELEMENT);
+    }
+
+    public static void setModeElement(ItemStack itemStack, boolean value) {
+        itemStack.stackTagCompound.setBoolean(TAG_MODE_ELEMENT, value);
     }
 
     // TODO: the part not from interfaces
@@ -268,6 +279,16 @@ public class ItemBoots extends ItemArmor
     }
 
     @Optional.Method(modid = "gtnhlib")
+    @SideOnly(Side.CLIENT)
+    public static void renderHUDElementModeNotification() {
+        Minecraft mc = Minecraft.getMinecraft();
+        String text = getModeBooleanText(
+                "thaumicboots.elementEffect",
+                getBoots(mc.thePlayer).stackTagCompound.getBoolean(TAG_MODE_ELEMENT));
+        GTNHLib.proxy.printMessageAboveHotbar(text, 60, true, true);
+    }
+
+    @Optional.Method(modid = "gtnhlib")
     public static String getModeText(String effect, double val) {
         String endResult = (int) val + "%";
         String result = switch ((int) val) {
@@ -281,5 +302,16 @@ public class ItemBoots extends ItemArmor
 
         return EnumChatFormatting.GOLD + StatCollector.translateToLocal(effect) + " " + result;
 
+    }
+
+    @Optional.Method(modid = "gtnhlib")
+    public static String getModeBooleanText(String effect, boolean value) {
+        String result;
+        if (value) {
+            result = EnumChatFormatting.GREEN + StatCollector.translateToLocal("ENABLED");
+        } else {
+            result = EnumChatFormatting.RED + StatCollector.translateToLocal("DISABLED");
+        }
+        return EnumChatFormatting.GOLD + StatCollector.translateToLocal(effect) + " " + result;
     }
 }

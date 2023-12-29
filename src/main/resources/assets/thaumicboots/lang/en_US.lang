@@ -96,6 +96,8 @@ itemGroup.Thaumic Boots=Thaumic Boots
 
 keybinding.speedtoggle=Modulate Speed Boost
 keybinding.jumptoggle=Modulate Jump Boost
+keybinding.elementtoggle=Modulate Element Effect
 
 thaumicboots.jumpEffect=Jump Boost:
 thaumicboots.speedEffect=Speed Boost:
+thaumicboots.elementEffect=Element Effect:

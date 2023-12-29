@@ -16,8 +16,10 @@ public interface ICometMeteorMix extends IMeteor, IComet {
             itemStack.stackTagCompound.setInteger("smashTicksMix", 0);
             itemStack.stackTagCompound.setInteger("airTicksMix", 0);
             itemStack.stackTagCompound.setInteger("runTicksMix", 0);
+            itemStack.stackTagCompound.setBoolean("element", false);
         }
-        grief(player);
+        boolean isEnabledGrief = itemStack.stackTagCompound.getBoolean("element");
+        grief(player, isEnabledGrief);
 
         boolean smashing = itemStack.stackTagCompound.getBoolean("IsSmashingMix");
         int ticksSmash = itemStack.stackTagCompound.getInteger("smashTicksMix");

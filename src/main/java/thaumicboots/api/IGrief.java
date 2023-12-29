@@ -10,10 +10,10 @@ import thaumicboots.main.utils.compat.ExplorationsHelper;
 
 public interface IGrief {
 
-    public default void grief(EntityPlayer player) {
+    public default void grief(EntityPlayer player, boolean isEnabled) {
         // anti-griefing config
         if (ExplorationsHelper.isActive()) {
-            if (!ConfigTX.allowBootsIce) {
+            if (!ConfigTX.allowBootsIce || !isEnabled) {
                 return;
             }
             for (int x = -5; x < 6; x++) {

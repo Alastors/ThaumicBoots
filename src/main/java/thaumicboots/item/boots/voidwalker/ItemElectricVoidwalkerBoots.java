@@ -86,19 +86,14 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IW
 
             // speed boost
             if (player.onGround || player.capabilities.isFlying) {
-                float bonus = 0.200F;
-                final ItemStack sash = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
-                if (sash != null && sash.getItem() == ItemRegistry.ItemVoidwalkerSash) {
-                    bonus *= 3.0F;
-                }
-                if (ElectricItem.manager.getCharge(stack) == 0) {
-                    bonus *= 0;
-                }
-
+                float bonus = getSpeedBonus(player, stack);
                 bonus = player.capabilities.isFlying ? bonus * 0.75F : bonus;
-                bonus *= stack.stackTagCompound.getDouble(TAG_MODE_SPEED);
                 player.moveFlying(0.0F, 1.0F, bonus);
-            } else if (Hover.getHover(player.getEntityId())) {
+            } else if (!player.onGround) {
+                float bonus = getSpeedBonus(player, stack);
+                bonus = bonus * 0.5f;
+                player.moveFlying(0.0F, 1.0F, bonus);
+            }else if (Hover.getHover(player.getEntityId())) {
                 player.jumpMovementFactor = 0.03F;
             } else {
                 player.jumpMovementFactor = player.isSprinting() ? 0.045F : 0.04F;
@@ -113,5 +108,22 @@ public class ItemElectricVoidwalkerBoots extends ItemElectricBoots implements IW
     @Override
     public EnumRarity getRarity(final ItemStack stack) {
         return EnumRarity.epic;
+    }
+
+    /**
+     * Setup speed boost on player based on speed boost mode.
+     */
+    private static float getSpeedBonus(EntityPlayer player, ItemStack stack) {
+        float bonus = 0.200F;
+        final ItemStack sash = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+        if (sash != null && sash.getItem() == ItemRegistry.ItemVoidwalkerSash) {
+            bonus *= 3.0F;
+        }
+        if (ElectricItem.manager.getCharge(stack) == 0) {
+            bonus *= 0;
+        }
+
+        bonus *= stack.stackTagCompound.getDouble(TAG_MODE_SPEED);
+        return bonus;
     }
 }
